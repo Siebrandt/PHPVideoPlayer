@@ -20,7 +20,7 @@ USE `PHPVideoPlayer` ;
 DROP TABLE IF EXISTS `PHPVideoPlayer`.`playlist` ;
 
 CREATE TABLE IF NOT EXISTS `PHPVideoPlayer`.`playlist` (
-  `pid` INT NOT NULL,
+  `pid` INT NOT NULL AUTO_INCREMENT,
   `plname` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`pid`))
 ENGINE = InnoDB;
@@ -32,7 +32,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `PHPVideoPlayer`.`video` ;
 
 CREATE TABLE IF NOT EXISTS `PHPVideoPlayer`.`video` (
-  `vid` INT NOT NULL,
+  `vid` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `video` LONGBLOB NOT NULL,
   `thumbnail` LONGBLOB NOT NULL,
