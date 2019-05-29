@@ -19,12 +19,12 @@ function GetPlaylists(){
     if (!$stmt->execute()) {
         die("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
     }
-    $result = $stmt->get_result();
     
-    return $result;
+    return $stmt->get_result();
 }
 
 function GetFirstVideoOfPlaylist($pid){
+    
     $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
     if (!$stmt = $mysqli->prepare("
             SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail, video.duration
@@ -46,9 +46,44 @@ function GetFirstVideoOfPlaylist($pid){
     if (!$stmt->execute()) {
         die("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
     }
+    
     $result = $stmt->get_result();
     
-    return mysqli_fetch_row($result);
+    if ($result->num_rows > 0) {
+        $result->fetch_assoc();
+        return $result;
+    }
+    return null;
 }
 
+function GetVideosOfPlaylist($pid){
+    $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
+    if (!$stmt = $mysqli->prepare("
+            SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail, video.duration
+            FROM playlist AS pl
+            INNER JOIN playlist_has_video AS p2v
+            ON pl.pid = p2v.pid
+            INNER JOIN video
+            ON p2v.vid = video.vid
+            WHERE pl.pid=?
+            ORDER BY video.title
+        ")){
+        die("Prepare failed: (" . $mysqli->errno . ") ".$mysqli->error);
+    }
+    
+    $escapeString = $mysqli->real_escape_string($pid);
+    $stmt->bind_param("s", $escapeString);
+    
+    if (!$stmt->execute()) {
+        die("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
+    }
+    
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $result->fetch_assoc();
+        return $result;
+    }
+    return null;
+}
 ?>
