@@ -36,8 +36,12 @@ CREATE TABLE IF NOT EXISTS `PHPVideoPlayer`.`video` (
   `title` VARCHAR(45) NOT NULL,
   `video` LONGBLOB NOT NULL,
   `thumbnail` LONGBLOB NOT NULL,
-  `duration` INT NOT NULL,
-  PRIMARY KEY (`vid`))
+  `duration` INT NULL,
+  `likes` INT NULL,
+  `dislikes` INT NULL,
+  `views` INT NULL,
+  PRIMARY KEY (`vid`),
+  UNIQUE INDEX `title_UNIQUE` (`title` ASC))
 ENGINE = InnoDB;
 
 

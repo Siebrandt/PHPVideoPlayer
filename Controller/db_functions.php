@@ -24,7 +24,6 @@ function GetPlaylists(){
 }
 
 function GetFirstVideoOfPlaylist($pid){
-    
     $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
     if (!$stmt = $mysqli->prepare("
             SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail, video.duration
@@ -72,6 +71,58 @@ function GetVideosOfPlaylist($pid){
     }
     
     $escapeString = $mysqli->real_escape_string($pid);
+    $stmt->bind_param("s", $escapeString);
+    
+    if (!$stmt->execute()) {
+        die("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
+    }
+    
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $result->fetch_assoc();
+        return $result;
+    }
+    return null;
+}
+
+function GetVideo($vid){
+    $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
+    if (!$stmt = $mysqli->prepare("
+            SELECT * 
+            FROM video
+            WHERE vid=?
+        ")){
+        die("Prepare failed: (" . $mysqli->errno . ") ".$mysqli->error);
+    }
+    
+    $escapeString = $mysqli->real_escape_string($vid);
+    $stmt->bind_param("s", $escapeString);
+    
+    if (!$stmt->execute()) {
+        die("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
+    }
+    
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $result->fetch_assoc();
+        return $result;
+    }
+    return null;
+}
+
+function IncreaseViewcount($vid){
+    $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
+    if (!$stmt = $mysqli->prepare("
+            SELECT *
+            FROM video
+            WHERE vid=?
+        ")){
+        die("Prepare failed: (" . $mysqli->errno . ") ".$mysqli->error);
+    }
+    
+    $escapeString = $mysqli->real_escape_string($vid);
     $stmt->bind_param("s", $escapeString);
     
     if (!$stmt->execute()) {

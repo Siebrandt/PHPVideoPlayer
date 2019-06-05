@@ -65,9 +65,11 @@
             </button>
             </div>
         </div>
-    </header>'
-
-    <?php echo getValue('inhalt') ?>
+    </header>
+    
+    <main role="main">
+    	<?php echo getValue('inhalt') ?>
+    </main>
     
     <footer class="text-muted">
         <div class="container">
@@ -75,6 +77,8 @@
             <a href="#">Back to top</a>
             </p>
             <p>Sourcen : BootsTrap | GIBS</p>
+            
+            <span class="text-muted center-block">&copy; und SonScheiss™</span>
         </div>
     </footer>
     

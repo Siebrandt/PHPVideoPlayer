@@ -51,7 +51,7 @@ function CreatePlaylistPanel($playlist){
             echo '<p class="card-text">'.$playlist["plname"].'</p>';
             echo '<div class="d-flex justify-content-between align-items-center">';
                 echo '<div class="btn-group">';
-                    if($videos != null)echo '<a href=../Controller/index.php?pid='.$playlist["pid"].'>Ansehen</a>';
+                    if($videos != null)echo '<a href=../Controller/index.php?pid='.$playlist["pid"].'&vid='.$video["vid"].'>Ansehen</a>';
                     else echo 'Kein Video vorhanden';
                 echo '</div>';
                 echo '<small class="text-muted"></small>';
@@ -65,24 +65,40 @@ function CreateVideoList($pid){
     
     if($videos != null){
         foreach ($videos as $video) {
-            echo '<div class="card col-sm-4"><img class="img-fluid" src="data:image/jpg;base64,'.base64_encode($video["thumbnail"]).'", alt="'.$video["title"].'.jpg"></div>';
-            
-            /*<img class="img-fluid" src="data:image/jpg;base64,'.base64_encode($video["thumbnail"]).'", alt="'.$video["title"].'.jpg">*/
+            if($video["vid"] == $_REQUEST["vid"])
+                echo '<div class="card col-sm-4 bg-primary"><a href=../Controller/index.php?pid='.$pid.'&vid='.$video["vid"].'><img class="img-fluid" src="data:image/jpg;base64,'.base64_encode($video["thumbnail"]).'", alt="'.$video["title"].'.jpg"></a>'.$video["title"].'</div>';
+            else
+                echo '<div class="card col-sm-4"><a href=../Controller/index.php?pid='.$pid.'&vid='.$video["vid"].'><img class="img-fluid" src="data:image/jpg;base64,'.base64_encode($video["thumbnail"]).'", alt="'.$video["title"].'.jpg"></a>'.$video["title"].'</div>';
         }
     }
     echo '</div></div>';
+}
+
+function LoadPlayerSource($vid){
     
-    /*<div class="col-xs-4">1</div><!--
-    --><div class="col-xs-4">2</div><!--
-    --><div class="col-xs-4">3</div><!--
-    --><div class="col-xs-4">4</div><!--
-    --><div class="col-xs-4">5</div><!--
-    --><div class="col-xs-4">6</div><!--
-    --><div class="col-xs-4">7</div><!--
-    --><div class="col-xs-4">8</div><!--
-    --><div class="col-xs-4">9</div>
-    </div>
-    </div>*/
+    $videos = GetVideo($vid);
+    
+    if($videos != null){
+        foreach ($videos as $video) {
+            echo base64_encode($video["video"]);
+            return;
+        }
+    }
+}
+
+function LoadVideoStats($vid){
+    $videos = GetVideo($vid);
+    
+    if($videos != null){
+        foreach ($videos as $video) {
+            echo '<div class="col-sm-6 text-left h4">'.$video['title'].'</div><div class="col-sm-3 text-right h5">Aufrufe '.$video['views'].'</div><div class="col-sm-3 text-right h5">Bewertung '.$video['likes'].'|'.$video['dislikes'].'</div>';
+            return;
+        }
+    }
+}
+
+function IncreaseViewcount(){
+    
 }
 
 /*************/
@@ -90,16 +106,16 @@ function CreateVideoList($pid){
 /*************/
 function playlist(){
     if(isset($_REQUEST) && isset($_REQUEST["pid"])){
-        echo runTemplate("../View/Pages/player.htm.php");
+        return runTemplate("../View/Pages/player.htm.php");
     }
     else{
-        echo runTemplate("../View/Pages/playlists.htm.php");
+        return runTemplate("../View/Pages/playlists.htm.php");
     }
     
 }
 
 function player(){
-    echo runTemplate("../View/Pages/player.htm.php");
+    return runTemplate("../View/Pages/player.htm.php");
 }
 ?>
 
