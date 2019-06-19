@@ -10,6 +10,8 @@
     <div class="collapse" id="collapsePlaylist">
       <div class="card card-body">
       	<link href="../View/css/videolist.css" rel="stylesheet">
+      	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
        	<?php CreateVideoList($_REQUEST["pid"]);?>
       </div>
 	</div>
@@ -25,7 +27,8 @@
         </video>
 	</div>
 	<div class="row">
-		<?php if(isset($_REQUEST["vid"])) LoadVideoStats($_REQUEST["vid"]);?>
+		
+		<?php if(isset($_REQUEST["vid"])){ LoadVideoStats($_REQUEST["vid"]);}?>
 	</div>
 </div>
 <?php 

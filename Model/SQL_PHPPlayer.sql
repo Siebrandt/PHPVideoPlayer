@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `PHPVideoPlayer`.`video` (
   `title` VARCHAR(45) NOT NULL,
   `video` LONGBLOB NOT NULL,
   `thumbnail` LONGBLOB NOT NULL,
-  `duration` INT NULL,
   `likes` INT NULL,
   `dislikes` INT NULL,
   `views` INT NULL,

@@ -26,7 +26,7 @@ function GetPlaylists(){
 function GetFirstVideoOfPlaylist($pid){
     $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
     if (!$stmt = $mysqli->prepare("
-            SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail, video.duration
+            SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail
             FROM playlist AS pl
             INNER JOIN playlist_has_video AS p2v
             ON pl.pid = p2v.pid
@@ -58,7 +58,7 @@ function GetFirstVideoOfPlaylist($pid){
 function GetVideosOfPlaylist($pid){
     $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
     if (!$stmt = $mysqli->prepare("
-            SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail, video.duration
+            SELECT pl.pid, video.vid, video.title, video.video, video.thumbnail
             FROM playlist AS pl
             INNER JOIN playlist_has_video AS p2v
             ON pl.pid = p2v.pid
@@ -112,28 +112,33 @@ function GetVideo($vid){
     return null;
 }
 
-function IncreaseViewcount($vid){
+function UpdateVideo($vid, $likes, $dislikes, $views){
     $mysqli = mysqli_connect("127.0.0.1", "root", "", "PHPVideoPlayer");
     if (!$stmt = $mysqli->prepare("
-            SELECT *
-            FROM video
-            WHERE vid=?
+            UPDATE video
+            SET likes = $likes,
+            dislikes = $dislikes,
+            views = $views
+            WHERE vid = ?;
         ")){
-        die("Prepare failed: (" . $mysqli->errno . ") ".$mysqli->error);
+        echo "Prepare failed: (" . $mysqli->errno . ") ".$mysqli->error;
     }
     
     $escapeString = $mysqli->real_escape_string($vid);
     $stmt->bind_param("s", $escapeString);
     
     if (!$stmt->execute()) {
-        die("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
+        echo("Execute failed: (" . $stmt->errno . ") ".$stmt->error);
     }
     
     $result = $stmt->get_result();
     
-    if ($result->num_rows > 0) {
-        $result->fetch_assoc();
-        return $result;
+    if($result != null)
+    {
+        if ($result->num_rows > 0) {
+            $result->fetch_assoc();
+            return $result;
+        }
     }
     return null;
 }

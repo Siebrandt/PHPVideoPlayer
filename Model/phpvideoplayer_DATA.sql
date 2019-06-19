@@ -110,7 +110,6 @@ CREATE TABLE IF NOT EXISTS `video` (
   `title` varchar(45) NOT NULL,
   `video` longblob NOT NULL,
   `thumbnail` longblob NOT NULL,
-  `duration` int(11) NOT NULL DEFAULT '0',
   `likes` int(11) NOT NULL DEFAULT '0',
   `dislikes` int(11) NOT NULL DEFAULT '0',
   `views` int(11) NOT NULL DEFAULT '0',

@@ -75,12 +75,12 @@ function CreateVideoList($pid){
 }
 
 function LoadPlayerSource($vid){
-    
     $videos = GetVideo($vid);
     
     if($videos != null){
         foreach ($videos as $video) {
             echo base64_encode($video["video"]);
+            IncreaseViewcount($vid);
             return;
         }
     }
@@ -91,14 +91,25 @@ function LoadVideoStats($vid){
     
     if($videos != null){
         foreach ($videos as $video) {
-            echo '<div class="col-sm-6 text-left h4">'.$video['title'].'</div><div class="col-sm-3 text-right h5">Aufrufe '.$video['views'].'</div><div class="col-sm-3 text-right h5">Bewertung '.$video['likes'].'|'.$video['dislikes'].'</div>';
+            echo '<div class="col-sm-6 text-left h4">'.$video['title'].'</div><div class="col-sm-3 text-right h5">Aufrufe '.$video['views'].'</div><div class="col-sm-3 text-right h5">';
+            echo '<i class="fa fa-thumbs-o-up like-btn" data-id="'.$video['likes'].'"></i><span class="likes">'.$video['likes'].'</span>   <i class="fa fa-thumbs-o-down dislikes-btn" data-id="'.$video['dislikes'].'"></i><span class="dislikes">'.$video['dislikes'].'</span></div>';
+            echo '<script src ="../Controller/script.js"></script>';
             return;
         }
     }
 }
 
-function IncreaseViewcount(){
+function IncreaseViewcount($vid){
+    $videos = GetVideo($vid);
     
+    if($videos != null){
+        foreach ($videos as $video) {
+            $views = $video['views'] + 1;
+
+            UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$views);
+            return;
+        }
+    }
 }
 
 /*************/
@@ -112,6 +123,35 @@ function playlist(){
         return runTemplate("../View/Pages/playlists.htm.php");
     }
     
+    $videos = GetVideo($_REQUEST["vid"]);
+    
+    if($videos != null){
+        foreach ($videos as $video) {
+            if (isset($_POST['action'])) {
+                $action = $_POST['action'];
+                switch ($action) {
+                    case 'like':
+                        $likes = $video['likes'] + 1;
+                        UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$likes);
+                        break;
+                    case 'dislike':
+                        $dislikes = $video['likes'] + 1;
+                        UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$dislikes);
+                        break;
+                    case 'unlike':
+                        $likes = $video['likes'] - 1;
+                        UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$likes);
+                        break;
+                    case 'undislike':
+                        $dislikes = $video['likes'] - 1;
+                        UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$dislikes);
+                        break;
+                    default:
+                        break;
+                }
+            return;
+        }
+    }
 }
 
 function player(){
