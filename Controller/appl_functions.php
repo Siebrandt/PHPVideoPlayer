@@ -112,6 +112,33 @@ function IncreaseViewcount($vid){
     }
 }
 
+function Like(){
+    $videos = GetVideo($_REQUEST["vid"]);
+    
+    echo 'LIKES';
+    
+    if($videos != null){
+        foreach ($videos as $video) {
+            $likes = $video['likes'] + 1;
+            UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$likes);
+            return;
+        }
+    }
+}
+function Dislike(){
+    $videos = GetVideo($_REQUEST["vid"]);
+    
+    echo 'DISLIKES';
+    
+    if($videos != null){
+        foreach ($videos as $video) {
+            $dislikes = $video['dislikes'] + 1;
+            UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$dislikes);
+            return;
+        }
+    }
+}
+
 /*************/
 /* TEMPLATES */
 /*************/
@@ -125,6 +152,8 @@ function playlist(){
     
     $videos = GetVideo($_REQUEST["vid"]);
     
+    echo 'PLAYLIST';
+    
     if($videos != null){
         foreach ($videos as $video) {
             if (isset($_POST['action'])) {
@@ -135,25 +164,17 @@ function playlist(){
                         UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$likes);
                         break;
                     case 'dislike':
-                        $dislikes = $video['likes'] + 1;
-                        UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$dislikes);
-                        break;
-                    case 'unlike':
-                        $likes = $video['likes'] - 1;
-                        UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$likes);
-                        break;
-                    case 'undislike':
-                        $dislikes = $video['likes'] - 1;
+                        $dislikes = $video['dislikes'] + 1;
                         UpdateVideo($video['vid'],$video['likes'],$video['dislikes'],$dislikes);
                         break;
                     default:
                         break;
                 }
-            return;
+                return;
+            }
         }
     }
 }
-
 function player(){
     return runTemplate("../View/Pages/player.htm.php");
 }
