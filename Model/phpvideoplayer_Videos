@@ -1,0 +1,10 @@
+INSERT INTO `video`(`title`, `video`, `thumbnail`) VALUES ("A.I. Learns to Drive",LOAD_FILE("C:/Temp/Videos/A.I. Learns to DRIVE.mp4"),LOAD_FILE("C:/Temp/Videos/A.I. Learns to DRIVE_Moment.jpg")),
+("A.I. Learns To Walk",LOAD_FILE("C:/Temp/Videos/A.I. Learns To Walk.mp4"),LOAD_FILE("C:/Temp/Videos/A.I. Learns To Walk_Moment.jpg")),
+("A.I. Solves a 100 x 100 Rubik's Cube",LOAD_FILE("C:/Temp/Videos/A.I. Solves a 100 x 100 Rubik's Cube.mp4"),LOAD_FILE("C:/Temp/Videos/A.I. Solves a 100 x 100 Rubik's Cube_Moment.jpg")),
+("Pusheen's Valentine",LOAD_FILE("C:/Temp/Videos/CatAnimation1.mp4"),LOAD_FILE("C:/Temp/Videos/CatAnimation1_Moment.jpg")),
+("Everybody do the flop",LOAD_FILE("C:/Temp/Videos/EDTF.mp4"),LOAD_FILE("C:/Temp/Videos/EDTF_Moment.jpg")),
+("KeyboardCat",LOAD_FILE("C:/Temp/Videos/KeyboardCat.mp4"),LOAD_FILE("C:/Temp/Videos/KeyboardCat.jpg")),
+("Match chain reaction - Volcaono",LOAD_FILE("C:/Temp/Videos/MatchChainReaction.mp4"),LOAD_FILE("C:/Temp/Videos/MatchChainReaction_Moment.jpg")),
+("Neural Networks - Cars",LOAD_FILE("C:/Temp/Videos/NeuralNetworkCars.mp4"),LOAD_FILE("C:/Temp/Videos/NeuralNetworkCars_Moment.jpg")),
+("Galileio - OmaGamer",LOAD_FILE("C:/Temp/Videos/OmaGamer.mp4"),LOAD_FILE("C:/Temp/Videos/OmaGamer_Moment.jpg")),
+("Chum Drum Bedrum",LOAD_FILE("C:/Temp/Videos/Weird russian singer - Chum Drum Bedrum.mp4"),LOAD_FILE("C:/Temp/Videos/Weird russian singer - Chum Drum Bedrum_Moment.jpg"))
