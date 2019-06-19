@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Jun 2019 um 14:00
--- Server-Version: 10.1.33-MariaDB
--- PHP-Version: 7.2.6
+-- Erstellungszeit: 19. Jun 2019 um 07:17
+-- Server-Version: 10.1.40-MariaDB
+-- PHP-Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,7 @@ USE `phpvideoplayer`;
 --
 -- Tabellenstruktur für Tabelle `playlist`
 --
--- Erstellt am: 22. Mai 2019 um 08:51
+-- Erstellt am: 19. Jun 2019 um 03:39
 --
 
 DROP TABLE IF EXISTS `playlist`;
@@ -57,7 +57,7 @@ INSERT INTO `playlist` (`pid`, `plname`) VALUES
 --
 -- Tabellenstruktur für Tabelle `playlist_has_video`
 --
--- Erstellt am: 22. Mai 2019 um 08:51
+-- Erstellt am: 19. Jun 2019 um 03:39
 --
 
 DROP TABLE IF EXISTS `playlist_has_video`;
@@ -81,27 +81,25 @@ CREATE TABLE IF NOT EXISTS `playlist_has_video` (
 --
 
 INSERT INTO `playlist_has_video` (`pid`, `vid`) VALUES
-(3, 4),
-(3, 7),
-(4, 11),
-(4, 12),
-(4, 13),
-(4, 8),
-(4, 9),
-(5, 8),
-(5, 7),
-(5, 10),
-(5, 6),
-(5, 4),
-(5, 13),
-(3, 14);
+(4, 25),
+(4, 26),
+(4, 27),
+(3, 34),
+(3, 30),
+(3, 29),
+(4, 31),
+(4, 32),
+(5, 28),
+(5, 31),
+(5, 33),
+(5, 25);
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `video`
 --
--- Erstellt am: 05. Jun 2019 um 09:43
+-- Erstellt am: 19. Jun 2019 um 03:39
 --
 
 DROP TABLE IF EXISTS `video`;
@@ -114,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `video` (
   `dislikes` int(11) NOT NULL DEFAULT '0',
   `views` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- RELATIONEN DER TABELLE `video`:
